@@ -23,3 +23,30 @@ bool solution(vector<string> crypt, vector<vector<char>> solution) {
     
     return true;
 }
+
+
+// Clean and optimized code
+
+bool solution(vector<string> crypt, vector<vector<char>> solution) {
+    unordered_map<char, int> hash;
+    
+    for(auto s: solution) {
+        hash[s[0]] = s[1] - '0';
+    }
+    
+    int nums[3] = {0};
+    
+    for(int i = 0;i < 3;i++) {
+        int len = crypt[i].size();
+        
+        if(hash[crypt[i][0]] == 0 && len > 1) {
+            return false;
+        }
+        
+        for(auto c: crypt[i]) {
+            nums[i] = nums[i] * 10 + hash[c];
+        } 
+    }
+    
+    return nums[0] + nums[1] == nums[2];
+}
